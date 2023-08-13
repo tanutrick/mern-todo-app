@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 export default class CreateTodo extends Component{
 
     constructor(props){
@@ -34,6 +36,7 @@ export default class CreateTodo extends Component{
         });
     
     }
+   
 
     onSubmit(e){
             console.log('tttt submitted')
@@ -45,6 +48,19 @@ export default class CreateTodo extends Component{
         console.log(`todo Description: ${this.state.todo_description}` );
         console.log(`todo priority: ${this.state.todo_priority}`);
         console.log(`todo responsibe: ${this.state.todo_responsible}`);
+
+        const newTodo = {
+            todo_description: this.state.todo_description,
+            todo_responsible: this.state.todo_responsible,
+            todo_priority: this.state.todo_priority,
+            todo_completed: this.state.todo_completed
+        };
+
+        axios.post('http://localhost:4000/todos/add', newTodo)
+            .then(res => console.log(res.data));
+
+
+
         this.setState({
             todo_description: '',
             todo_responsible: '',
